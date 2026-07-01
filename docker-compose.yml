@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  amazon-app-local:
+    build: .
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    env_file:
+      - .env  # <-- This tells Docker Compose to read your local .env file!
