@@ -48,7 +48,11 @@ public class UserService {
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        if(authentication.isAuthenticated()) return jwtService.generateToken(loginRequest.getUsername());
+        if(authentication.isAuthenticated()) {
+            Users user = userRepo.findByUsername(loginRequest.getUsername());
+            String role = user.getRole();
+            return jwtService.generateToken(loginRequest.getUsername(), role);
+        }
         return "Login Failed";
     }
 }

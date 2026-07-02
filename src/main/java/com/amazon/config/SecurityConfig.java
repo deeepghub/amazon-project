@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/index.html", "/assets/**", "/*.js", "/*.css", "/*.svg", "/*.ico",
                                 "/register", "/login", "/products", "/product/**", "/working")
                         .permitAll()
+                        .requestMatchers("/add-product").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
